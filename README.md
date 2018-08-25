@@ -1,4 +1,4 @@
-# Data-Sceince-Team
+# Data-Science-Team
 This repository consists of the following tables:  
 *	customers_table.xlsx is an excell table with fake data dedicated to project-A.
 *	database_tables is a PostgresSQL script for creating our tables.  
