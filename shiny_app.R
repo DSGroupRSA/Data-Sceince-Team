@@ -10,6 +10,16 @@ library(shinydashboard)
 library(slickR)  # for slideshow
 library(data.table)
 
+
+#----------------------------------
+#Input images
+women_pics <- "/Users/themba/Pictures/"
+#men_pics <- "/Users/themba/Pictures/"
+#girls_pics <- "/Users/themba/Pictures/"
+#boys_pics <- "/Users/themba/Pictures/"
+
+
+
 ui <- dashboardPage(skin = "blue",
   dashboardHeader(
     title = "Data Analytics", #titleWidth = 200
@@ -38,6 +48,7 @@ ui <- dashboardPage(skin = "blue",
     ),
 
   dashboardBody(
+    #slickROutput("slickr", width = "100%", height = "400px"),
     uiOutput("menu1_content"),
     uiOutput("menu2_content")
     )
@@ -59,7 +70,7 @@ server <- function(input, output, session) {
       if (grepl("-",input$sidebar_menu) == TRUE) {
         sidebar_menu <- tstrsplit(input$sidebar_menu, "-")
         if (sidebar_menu[[2]] == "Woman") box(background='black',renderSlickR({
-    imgs <- list.files("/Users/themba/Pictures/", pattern=".jpeg", full.names = TRUE)
+    imgs <- list.files(women_pics, pattern=".jpeg", full.names = TRUE)
     slickR(imgs)
   }))
         else box(sidebar_menu[[2]])}
