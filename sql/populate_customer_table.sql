@@ -1,0 +1,2 @@
+COPY customers_table("name","surname","cell_no","landline_no","email","comm_channel","address","region","gender","reg_date","created_by_id")
+FROM '/home/themba/DA/Data-Science-Team/data/customers_table.csv' DELIMITER ';' CSV HEADER;
