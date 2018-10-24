@@ -15,7 +15,7 @@ library(data.table)
 #Input images
 women_pics <- "/Users/themba/Pictures/"
 catalog    <- c("Man","Woman","Girls","Boys")
-data       <- read.csv("clients.csv", header = TRUE, sep=";")
+#data       <- read.csv("../data/clients.csv", header = TRUE, sep=";")
 
 ui <- dashboardPage(skin = "blue",
 	dashboardHeader(
