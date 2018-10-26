@@ -71,7 +71,7 @@ _________________________________DONE___________________________________________
 Install R packages
 
 Step 1
- from the terminal enter: R
+ from the terminal entsudo apt updateer: R
 
 Step 2
  > install.packages("ggplot2")
@@ -80,8 +80,22 @@ Step 2
  > install.packages("slickR")
  > install.packages("data.table")
 
+---------------Install postgres----------------
 
- postgres
+$ sudo apt update
+$ sudo apt install postgresql postgresql-contrib
+
+Switching Over to the postgres Account
+
+$ sudo -i -u postgres
+
+You can now access a Postgres prompt immediately by typing:
+
+$ psql
+
+This will log you into the PostgreSQL prompt, and from here you are free to interact with the database management system right away.
+
+postgres# \q
 
 Success. You can now start the database server using:
 
