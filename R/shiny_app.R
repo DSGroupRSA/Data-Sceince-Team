@@ -9,16 +9,17 @@ library(shiny)
 library(shinydashboard)
 library(slickR)  # for slideshow
 library(data.table)
-
+library(DBI)
+library(RPostgreSQL)
+library(DT)
 
 #----------------------------------
 #Input images
 women_pics <- "/Users/themba/Pictures/"
 catalog    <- c("Man","Woman","Girls","Boys")
-#data       <- read.csv("../data/clients.csv", header = TRUE, sep=";")
 
 ui <- dashboardPage(skin = "blue",
-	dashboardHeader(
+  dashboardHeader(
     title = "Data Analytics", #titleWidth = 200
     dropdownMenu()
     ),
@@ -30,8 +31,8 @@ ui <- dashboardPage(skin = "blue",
       label = "Search..."),
 
     sidebarMenu(id = "sidebar_menu",
-      			menuItemOutput("dynamic_menu"),
-      			menuItem("Employees", tabName = "employee")
+            menuItemOutput("dynamic_menu"),
+            menuItem("Employees", tabName = "employee")
       )
     ),
 
@@ -42,24 +43,30 @@ ui <- dashboardPage(skin = "blue",
 )
 
 server <- function(input, output, session) { 
-  		output$dynamic_menu <- renderMenu({menu_list <- lapply(catalog, function(x) {menuSubItem(x, tabName = paste0("menu1-", x))})
-      							menuItem(icon = icon("file-text-o"),
-        							text = "Catalogues:",
-        							startExpanded = TRUE,
-        							do.call(tagList, menu_list))})
+      output$dynamic_menu <- renderMenu({menu_list <- lapply(catalog, function(x) {menuSubItem(x, tabName = paste0("menu1-", x))})
+                    menuItem(icon = icon("file-text-o"),
+                      text = "Catalogues:",
+                      startExpanded = TRUE,
+                      do.call(tagList, menu_list))})
 
-    	output$menu1_content <- renderUI({
-      							if (grepl("-",input$sidebar_menu) == TRUE) 
-      								{sidebar_menu <- tstrsplit(input$sidebar_menu, "-")
-        							if (sidebar_menu[[2]] == "Woman") 
-        								box(background='black',renderSlickR({imgs <- list.files(women_pics, pattern=".jpeg", full.names = TRUE)
- 										slickR(imgs)}))
-        							else box(sidebar_menu[[2]])}
+      output$menu1_content <- renderUI({
+                    if (grepl("-",input$sidebar_menu) == TRUE) 
+                      {sidebar_menu <- tstrsplit(input$sidebar_menu, "-")
+                      if (sidebar_menu[[2]] == "Woman") 
+                        box(background='black',renderSlickR({imgs <- list.files(women_pics, pattern=".jpeg", full.names = TRUE)
+                    slickR(imgs)}))
+                      else box(sidebar_menu[[2]])}
     })
 
-    	output$menu2_content <- renderUI({
-    	  							sidebar_menu <- tstrsplit(input$sidebar_menu, "-")
-    	  							if (sidebar_menu[[1]] == "employee") box("We are employees")
+      output$menu2_content <- renderUI({
+                      sidebar_menu <- tstrsplit(input$sidebar_menu, "-")
+                      if (sidebar_menu[[1]] == "employee") box(title = "Sales", width = 12, height = 12,
+                        renderDataTable({
+                          drv <- dbDriver("PostgreSQL")
+                          conn <- dbConnect(drv, dbname = "test", host = "localhost", port = 5432, user = "themba")
+                          on.exit(dbDisconnect(conn), add = TRUE)
+                          dbGetQuery(conn, paste0("SELECT * FROM sales_table"))
+  }))
     })
 }
 
