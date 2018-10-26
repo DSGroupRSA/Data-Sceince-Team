@@ -1,0 +1,99 @@
+Install R:
+________________________________________________________________________________
+Step 1 — Add GPG Key
+
+Logged into your Ubuntu 18.04 server as a sudo non-root user, add the relevant GPG key.
+
+    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+
+Step 2 — Add the R Repository
+
+    sudo add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/'
+
+If you’re not using 18.04, find the relevant repository from the R Project Ubuntu list, named for each release.
+Step 3 — Update Package Lists
+
+    sudo apt update
+
+Step 4 — Install R
+
+    sudo apt install r-base
+
+If prompted to confirm installation, press y to continue.
+Step 5 — Test Install
+
+Start R’s interactive shell as root.
+
+    sudo -i R
+
+You should receive output similar to the following:
+
+Output
+
+R version 3.5.1 (2018-07-02) -- "Feather Spray"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+...
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+_________________________________DONE_______________________________________________
+
+
+Install rstudio ubuntu 18.04
+
+RStudio for Ubuntu system comes as the *.deb install-able package. The easiest way to install DEB file on Ubuntu Linux is by using the gdebi command. In case gdebi is not available on your system you can install it by executing the bellow command:
+
+$ sudo apt install gdebi-core
+
+Download RStudio
+Next, navigate your browser to the official RStudio download page [https://www.rstudio.com/products/rstudio/download/#download] and download the latest Ubuntu/Debian RStudio *.deb package available.
+
+At the time of writing the Ubuntu 18.04 Bionic package is not available yet. If this is still the case download the Ubuntu 16.04 Xenial package instead.
+
+$ cd Downloads/
+$ ls
+rstudio-xenial-1.1.442-amd64.deb
+
+
+Install RStudio on Ubuntu
+At this stage we are ready to install RStudio on our Ubuntu 18.04 system. Run the below gdebi command from the location of your downloaded RStudio package while replacing the package name where appropriate. When prompted, answer y to proceed with the installation:
+
+$ sudo gdebi rstudio-xenial-1.1.442-amd64.deb
+
+Once the installation of RStudio on your Ubuntu system is completed you can start RStudio by executing the following linux command:
+
+$ rstudio
+_________________________________DONE_______________________________________________
+
+
+Install R packages
+
+Step 1
+ from the terminal enter: R
+
+Step 2
+ > install.packages("ggplot2")
+ > install.packages("shiny")
+ > install.packages("shinydashboard")
+ > install.packages("slickR")
+ > install.packages("data.table")
+
+
+ postgres
+
+Success. You can now start the database server using:
+
+    /usr/lib/postgresql/10/bin/pg_ctl -D /var/lib/postgresql/10/main -l logfile start
+
+Ver Cluster Port Status Owner    Data directory              Log file
+10  main    5432 down   postgres /var/lib/postgresql/10/main /var/log/postgresql/postgresql-10-main.log
+
+start postgres: sudo -u postgres psql
+change to another database: \c databasename
+run a sql script: sudo -u postgres psql -d analytics -a -f database.sql 
+
+
+        
+
